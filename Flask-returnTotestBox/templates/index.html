@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% if 'query_update' in request.url %}
+
+<form name="hai" action="/update" method="post">
+<table>
+    <tr>
+        <td>District</td>
+        <td><input type="text" name="txt_district" id="" value="{{uresults.district_name}}"></td>
+    </tr>
+    <tr>
+        <input type="hidden" name="hiddendistrict_id" value='{{uresults.district_id}}'>
+        <td colspan="2"><input type="submit" value="submit"></td>
+    </tr>
+   
+</table>
+</form>
+
+
+{% else %}
+<form name="hai" action="/insert" method="post">
+    <table>
+        <tr>
+            <td>District</td>
+            <td><input type="text" name="txt_district" id=""></td>
+        </tr>
+        <tr>
+            <td colspan="2"><input type="submit" value="submit"></td>
+        </tr>
+    </table>
+    </form>
+{% endif %}
+<h1>Select and display on table</h1>
+<table>
+    <tr>
+        <td>Serial No</td>
+        <td>District</td>
+        <td>Delete</td>
+        <td>Edit</td>
+    </tr>
+    {% for result in results %}
+        <tr>   
+            <td align="center">{{ loop.index }}</td>
+            <td align="center">{{ result.district_name }}</td>
+            <td align="center"><a href = "{{ url_for('dataRemove', dprimary=result.district_id ) }}">Delete</a></td>
+            <td align="center"><a href = "{{ url_for('dataUpdate', uprimary=result.district_id ) }}">Edit</a></td>
+        </tr> 
+    {% endfor %}
+</table>
+
+{% endblock %}
